@@ -9,12 +9,15 @@
         "php": "^8.2",
         "devdojo/auth": "^1.0",
         "filament/filament": "^3.2",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
+        "lakm/laravel-comments": "^2.2",
         "laravel/folio": "^1.1",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
         "livewire/volt": "^1.6"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",

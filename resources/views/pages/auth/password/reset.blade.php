@@ -12,9 +12,22 @@ new class extends Component
 {
     use HasConfigs;
 
-    #[Validate('required|email')]
+    #[Validate('required')]
     public $email = null;
+    private $isEmail = false;
     public $emailSentMessage = false;
+
+    public function rules()
+    {
+        if ($this->isEmail = str($this->email)->contains('@')) {
+            return ['email' => 'email'];
+        }
+        if (str($this->email)->startsWith('01')) {
+            $this->email = '+88' . $this->email;
+        }
+        
+        return ['email' => 'regex:/^\+8801\d{9}$/'];
+    }
 
     public function mount(){
         $this->loadConfigs();
@@ -24,9 +37,20 @@ new class extends Component
     {
         $this->validate();
 
-        $response = Password::broker()->sendResetLink(['email' => $this->email]);
+        if ($this->isEmail) {
+            $response = Password::broker()->sendResetLink(['email' => $this->email]);
+        } else {
+            $response = Password::broker('phone')->sendResetLink(['phone' => $this->email]);
+        }
 
         if ($response == Password::RESET_LINK_SENT) {
+            if (! $this->isEmail) {
+                return to_route('password.reset', [
+                    'phone' => $this->email,
+                    'token' => 'otp',
+                ]);
+            }
+
             $this->emailSentMessage = trans($response);
 
             return;
@@ -50,7 +74,7 @@ new class extends Component
         />
 
         @if ($emailSentMessage)
-            <div class="p-4 mb-2 bg-green-50 rounded-md dark:bg-green-600">
+            <div class="p-4 mb-2 rounded-md bg-green-50 dark:bg-green-600">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="w-5 h-5 text-green-400 dark:text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -67,7 +91,7 @@ new class extends Component
             </div>
         @else
             <form wire:submit="sendResetPasswordLink" class="space-y-5">
-                <x-auth::elements.input :label="config('devdojo.auth.language.passwordResetRequest.email')" type="email" id="email" name="email" data-auth="email-input" wire:model="email" autofocus="true" autocomplete="email" />
+                <x-auth::elements.input :label="config('devdojo.auth.language.passwordResetRequest.email')" type="text" id="email" name="email" data-auth="email-input" wire:model="email" autofocus="true" autocomplete="email" />
                 <x-auth::elements.button type="primary" data-auth="submit-button" rounded="md" submit="true">{{config('devdojo.auth.language.passwordResetRequest.button')}}</x-auth::elements.button>
             </form>
         @endif

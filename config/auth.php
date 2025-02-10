@@ -97,6 +97,13 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'phone' => [
+            'provider' => 'users',
+            'table' => env('OTP_TABLE', 'otp_codes'),
+            'expire' => 60,
+            'throttle' => 60,
+            'driver' => 'phone',
+        ],
     ],
 
     /*
