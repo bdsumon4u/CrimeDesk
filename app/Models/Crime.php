@@ -108,10 +108,13 @@ class Crime extends Model implements CommentableContract, HasMedia
     {
         return new Attribute(
             get: function () {
-                $votes = $this->upvotes_count + $this->downvotes_count;
                 $comments = $this->comments->sum('score') + $this->comments->count();
 
-                return Number::format(($votes + $comments) / ($votes + $comments) * 100);
+                if ($this->upvotes_count - $this->downvotes_count + $comments === 0) {
+                    return 50;
+                }
+
+                return Number::format(max(0, $this->upvotes_count - $this->downvotes_count + $comments) / ($this->upvotes_count + $this->downvotes_count + $comments) * 100);
             }
         );
     }

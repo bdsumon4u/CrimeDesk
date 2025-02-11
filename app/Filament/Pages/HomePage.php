@@ -29,7 +29,7 @@ class HomePage extends Dashboard
     {
         return [
             'crimes' => Crime::query()
-                ->with(['user', 'media', 'userReact', 'comments'])
+                ->with(['user', 'media', 'district', 'division', 'userReact', 'comments'])
                 ->withCount(['upvotes', 'downvotes'])
                 ->orderByDesc('created_at')
                 ->paginate(10),

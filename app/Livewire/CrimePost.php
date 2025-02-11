@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Concerns\NeedsVerifiedPhone;
 use App\Models\Crime;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -9,6 +10,8 @@ use Livewire\Component;
 
 final class CrimePost extends Component
 {
+    use NeedsVerifiedPhone;
+
     public Crime $crime;
 
     /**
@@ -16,9 +19,40 @@ final class CrimePost extends Component
      */
     #[On('crime.updated')]
     #[On('crime.created')]
+    #[On('comment-created')]
     public function refresh(): void
     {
         $this->crime->loadCount(['upvotes', 'downvotes', 'comments']);
+    }
+
+    /**
+     * Like the crime.
+     */
+    // #[Renderless]
+    public function like(): void
+    {
+        if ($this->doesNotHaveVerifiedPhone()) {
+            return;
+        }
+
+        $this->crime->like();
+        // $this->dispatch('crime.updated');
+        $this->refresh();
+    }
+
+    /**
+     * Dislike the crime.
+     */
+    // #[Renderless]
+    public function dislike(): void
+    {
+        if ($this->doesNotHaveVerifiedPhone()) {
+            return;
+        }
+
+        $this->crime->dislike();
+        // $this->dispatch('crime.updated');
+        $this->refresh();
     }
 
     /**

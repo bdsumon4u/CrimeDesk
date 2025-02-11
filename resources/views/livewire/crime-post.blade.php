@@ -14,7 +14,8 @@
                         </div>
                     </a>
                     <div class="text-slate-500 dark:text-slate-400">
-                        <p title="{{ $crime->happened_at->format('H:i A') }}"><strong>Crime On:</strong> {{ $crime->happened_at->format('d-M-Y') }}</p>
+                        <p title="{{ $crime->happened_at->format('H:i A') }}"><strong>Crime On:</strong>
+                            {{ $crime->happened_at->format('d-M-Y') }}</p>
                         <p><strong>Verification Score:</strong> {{ $crime->score }}</p>
                     </div>
                 </div>
@@ -148,8 +149,55 @@
                         <span x-text="expanded ? 'Show less' : 'Show more'"></span>
                     </button>
                 </div>
-                <livewire:react-counter :$crime />
+
+                <div class="flex gap-4">
+                    <a class="inline-flex items-center cursor-pointer" wire:click="like">
+                        <span class="mr-2">
+                            <x-filament::icon :icon="$crime->user_vote > 0 ? 'heroicon-m-hand-thumb-up' : 'heroicon-o-hand-thumb-up'" class="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                        </span>
+                        <span class="text-lg font-bold">{{ $crime->upvotes_count }}</span>
+                    </a>
+                    <a class="inline-flex items-center cursor-pointer" wire:click="dislike">
+                        <span class="mr-2">
+                            <x-filament::icon :icon="$crime->user_vote < 0
+                                ? 'heroicon-m-hand-thumb-down'
+                                : 'heroicon-o-hand-thumb-down'" class="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                        </span>
+                        <span class="text-lg font-bold">{{ $crime->downvotes_count }}</span>
+                    </a>
+                    <a class="inline-flex items-center cursor-pointer"
+                        x-on:click="$dispatch('open-modal', { id: 'crime-comments-{{ $crime->id }}' })">
+                        <span class="mr-2">
+                            <x-filament::icon icon="heroicon-o-chat-bubble-left-right"
+                                class="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                        </span>
+                        <span class="text-lg font-bold">{{ $crime->comments->count() }}</span>
+                    </a>
+                    <div class="grid ml-auto text-sm font-bold text-gray-500 dark:text-gray-400 place-content-center">
+                        {{ $crime->district->name }}, {{ $crime->division->name }}
+                    </div>
+                </div>
             </div>
+
+            <x-filament::modal id="crime-comments-{{ $crime->id }}" width="3xl">
+                <x-slot name="header">
+                    <div class="flex items-center gap-x-3">
+                        <x-filament-panels::avatar.user :user="$crime->user" size="md" :circular="false" />
+                        <div>
+                            <h2 class="text-xl font-bold">{{ $crime->user->name }}</h2>
+                            <p class="text-sm text-gray-500">{{ $crime->created_at->format('F d, Y') }}</p>
+                        </div>
+                    </div>
+                </x-slot>
+
+                <div class="space-y-2">
+                    <h3 class="text-2xl font-bold">{{ $crime->title }}</h3>
+
+                    <div class="border-t">
+                        <x-comments::index :model="$crime" />
+                    </div>
+                </div>
+            </x-filament::modal>
         </article>
     </div>
 </article>
