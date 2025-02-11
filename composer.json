@@ -10,7 +10,7 @@
         "devdojo/auth": "^1.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "lakm/laravel-comments": "^2.2",
+        "lakm/laravel-comments": "dev-clone",
         "laravel/folio": "^1.1",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
@@ -75,6 +75,15 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    "minimum-stability": "dev",
+    "prefer-stable": false,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/laravel-comments",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }

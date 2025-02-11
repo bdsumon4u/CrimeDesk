@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\UserCanComment;
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ class Crime extends Model implements CommentableContract, HasMedia
 {
     use Commentable;
     use InteractsWithMedia;
+    use UserCanComment;
 
     public $guestMode = false;
 

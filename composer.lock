@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0918eb3561f238baa447009450070264",
+    "content-hash": "9f4c03fd7f973ec813bee01ca5744232",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2177,7 +2177,7 @@
         },
         {
             "name": "graham-campbell/security-core",
-            "version": "v4.0.2",
+            "version": "4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Security-Core.git",
@@ -2198,6 +2198,7 @@
                 "graham-campbell/analyzer": "^4.2.1",
                 "phpunit/phpunit": "^9.6.22 || ^10.5.41"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2719,17 +2720,11 @@
         },
         {
             "name": "lakm/laravel-comments",
-            "version": "2.2.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Lakshan-Madushanka/laravel-comments.git",
-                "reference": "0ddfa5d5dae52a58b5315cfdbf4580bcd4490746"
-            },
+            "version": "dev-clone",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Lakshan-Madushanka/laravel-comments/zipball/0ddfa5d5dae52a58b5315cfdbf4580bcd4490746",
-                "reference": "0ddfa5d5dae52a58b5315cfdbf4580bcd4490746",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/laravel-comments",
+                "reference": "3fc9d8a97362f96396ff54e29664eb4877a585d4"
             },
             "require": {
                 "graham-campbell/security": "11.2",
@@ -2762,7 +2757,16 @@
                     "LakM\\Comments\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "LakM\\Comments\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "analyze": [
+                    "./vendor/bin/phpstan analyse"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2775,22 +2779,15 @@
             ],
             "description": "Integrate seamless commenting functionality into your Laravel project.",
             "keywords": [
-                "alpine.js",
+                "Alpine.js",
+                "Livewire",
                 "comments",
-                "laravel",
-                "livewire"
+                "laravel"
             ],
-            "support": {
-                "issues": "https://github.com/Lakshan-Madushanka/laravel-comments/issues",
-                "source": "https://github.com/Lakshan-Madushanka/laravel-comments/tree/2.2.8"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Lakshan-Madushanka",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-02-08T13:25:13+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "lakm/nopass",
@@ -7846,16 +7843,16 @@
         },
         {
             "name": "symfony/polyfill-iconv",
-            "version": "v1.31.0",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-iconv.git",
-                "reference": "48becf00c920479ca2e910c22a5a39e5d47ca956"
+                "reference": "5f3b930437ae03ae5dff61269024d8ea1b3774aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/48becf00c920479ca2e910c22a5a39e5d47ca956",
-                "reference": "48becf00c920479ca2e910c22a5a39e5d47ca956",
+                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/5f3b930437ae03ae5dff61269024d8ea1b3774aa",
+                "reference": "5f3b930437ae03ae5dff61269024d8ea1b3774aa",
                 "shasum": ""
             },
             "require": {
@@ -7867,6 +7864,7 @@
             "suggest": {
                 "ext-iconv": "For best performance"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "thanks": {
@@ -7906,7 +7904,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-iconv/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-iconv/tree/1.x"
             },
             "funding": [
                 {
@@ -7922,7 +7920,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2024-09-17T14:58:18+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -8248,7 +8246,7 @@
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.31.0",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
@@ -8263,6 +8261,7 @@
             "require": {
                 "php": ">=7.2"
             },
+            "default-branch": true,
             "type": "metapackage",
             "extra": {
                 "thanks": {
@@ -9329,16 +9328,16 @@
         },
         {
             "name": "voku/anti-xss",
-            "version": "4.1.42",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/anti-xss.git",
-                "reference": "bca1f8607e55a3c5077483615cd93bd8f11bd675"
+                "reference": "25a3cf6a6d2e43b7aa4dd08f7c633ad544484643"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/anti-xss/zipball/bca1f8607e55a3c5077483615cd93bd8f11bd675",
-                "reference": "bca1f8607e55a3c5077483615cd93bd8f11bd675",
+                "url": "https://api.github.com/repos/voku/anti-xss/zipball/25a3cf6a6d2e43b7aa4dd08f7c633ad544484643",
+                "reference": "25a3cf6a6d2e43b7aa4dd08f7c633ad544484643",
                 "shasum": ""
             },
             "require": {
@@ -9348,6 +9347,7 @@
             "require-dev": {
                 "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -9384,7 +9384,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/anti-xss/issues",
-                "source": "https://github.com/voku/anti-xss/tree/4.1.42"
+                "source": "https://github.com/voku/anti-xss/tree/master"
             },
             "funding": [
                 {
@@ -9408,7 +9408,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-03T14:40:46+00:00"
+            "time": "2023-09-04T15:36:40+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -12968,9 +12968,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {},
-    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "lakm/laravel-comments": 20
+    },
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
