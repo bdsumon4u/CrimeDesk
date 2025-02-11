@@ -2,12 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Concerns\NeedsVerifiedPhone;
 use App\Models\Crime;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ReactCounter extends Component
 {
+    use NeedsVerifiedPhone;
+
     public Crime $crime;
 
     /**
@@ -27,9 +30,9 @@ class ReactCounter extends Component
     // #[Renderless]
     public function like(): void
     {
-        // if ($this->doesNotHaveVerifiedEmail()) {
-        //     return;
-        // }
+        if ($this->doesNotHaveVerifiedPhone()) {
+            return;
+        }
 
         $this->crime->like();
         // $this->dispatch('crime.updated');
@@ -42,9 +45,9 @@ class ReactCounter extends Component
     // #[Renderless]
     public function dislike(): void
     {
-        // if ($this->doesNotHaveVerifiedEmail()) {
-        //     return;
-        // }
+        if ($this->doesNotHaveVerifiedPhone()) {
+            return;
+        }
 
         $this->crime->dislike();
         // $this->dispatch('crime.updated');

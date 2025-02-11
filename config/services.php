@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'smsbangla' => [
+        'url' => env('SMSBANGLAB_URL'),
+        'username' => env('SMSBANGLAB_USERNAME'),
+        'password' => env('SMSBANGLAB_PASSWORD'),
+        'apikey' => env('SMSBANGLAB_APIKEY'),
+        'sender' => env('SMSBANGLAB_SENDER'),
+    ],
+
 ];

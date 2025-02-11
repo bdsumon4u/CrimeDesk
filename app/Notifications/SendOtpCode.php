@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Notifications\Channels\BanglaSMS;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -13,9 +14,9 @@ class SendOtpCode extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(string $code)
+    public function __construct(public string $code)
     {
-        info($code);
+        //
     }
 
     /**
@@ -25,7 +26,7 @@ class SendOtpCode extends Notification
      */
     public function via(object $notifiable): array
     {
-        return [];
+        return [BanglaSMS::class];
     }
 
     /**
@@ -47,7 +48,7 @@ class SendOtpCode extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'msg' => 'Your OTP code is: '.$this->code,
         ];
     }
 }

@@ -1,6 +1,11 @@
 <x-filament-panels::page>
     @commentsStyles
     @commentsScripts
+    @if (! auth()->user()->hasVerifiedPhone())
+        <div class="p-4 text-white bg-red-500 rounded-md">
+            Your phone number is not verified. Please <a href="{{ route('verification.phone') }}" class="text-white underline">verify your phone number</a> to continue.
+        </div>
+    @endif
     <div class="grid grid-cols-12 gap-4">
         {{-- Main --}}
         <div class="md:col-span-8">

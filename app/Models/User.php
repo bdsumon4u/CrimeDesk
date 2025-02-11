@@ -57,6 +57,11 @@ class User extends AuthUser implements CommenterContract, FilamentUser, HasAvata
         ];
     }
 
+    public function hasVerifiedPhone(): bool
+    {
+        return $this->phone_verified_at !== null;
+    }
+
     public function getFilamentAvatarUrl(): ?string
     {
         return 'https://ui-avatars.com/api/?name='.$this->name;
@@ -65,7 +70,7 @@ class User extends AuthUser implements CommenterContract, FilamentUser, HasAvata
     public function filamentAvatarUrl(): Attribute
     {
         return new Attribute(
-            get: fn () => 'https://ui-avatars.com/api/?name='.$this->name,
+            get: fn () => $this->exists ? 'https://ui-avatars.com/api/?name='.$this->name : null,
         );
     }
 
