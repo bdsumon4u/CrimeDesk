@@ -132,6 +132,6 @@ class Crime extends Model implements CommentableContract, HasMedia
                 paddingY: 10,
                 paddingUnit: Unit::Percent,
             );
-            // ->nonQueued(); // Process instantly
+        // ->nonQueued(); // Process instantly
     }
 }

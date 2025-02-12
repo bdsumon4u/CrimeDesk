@@ -16,6 +16,7 @@
         "lakm/laravel-comments": "dev-clone",
         "laravel/folio": "^1.1",
         "laravel/framework": "^11.31",
+        "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/volt": "^1.6",

@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Livewire\Concerns\NeedsVerifiedPhone;
 use App\Models\Crime;
+use Filament\Notifications\Events\DatabaseNotificationsSent;
+use Filament\Notifications\Notification;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -36,6 +38,11 @@ final class CrimePost extends Component
         }
 
         $this->crime->like();
+        Notification::make()
+            ->title('Your report got a like')
+            ->sendToDatabase($this->crime->user);
+        event(new DatabaseNotificationsSent($this->crime->user));
+
         // $this->dispatch('crime.updated');
         $this->refresh();
     }
@@ -51,6 +58,11 @@ final class CrimePost extends Component
         }
 
         $this->crime->dislike();
+        Notification::make()
+            ->title('Your report got a dislike')
+            ->sendToDatabase($this->crime->user);
+        event(new DatabaseNotificationsSent($this->crime->user));
+
         // $this->dispatch('crime.updated');
         $this->refresh();
     }

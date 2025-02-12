@@ -65,6 +65,11 @@
 
                             <div class="relative cursor-pointer {{ $itemClasses }}"
                                 x-on:click="selectedMedia = mediaItems[{{ $index }}]">
+                                @if($crime->score >= 60)
+                                <div class="absolute z-50 w-10 h-10 -top-3 -right-3">
+                                    <img src="{{ asset('badge.png') }}" alt="Verified" class="w-full h-full">
+                                </div>
+                                @endif
                                 @if (str_starts_with($media->mime_type, 'video/'))
                                     <div class="relative w-full h-full">
                                         <video src="{{ $media->getUrl() }}"
