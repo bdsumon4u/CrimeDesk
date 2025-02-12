@@ -98,7 +98,7 @@ return [
          * get the url of profile photo.
          * Leave null if profile photo is not supported
          */
-        'url_column' => '',
+        'url_column' => 'filament_avatar_url',
         'default' => [
             /**
              * when profile photo url haven't been set
@@ -121,7 +121,7 @@ return [
      * Keep null to disable this feature.
      * This can be table column name or accessor
      */
-    'profile_url_column' => 'filament_avatar_url',
+    'profile_url_column' => 'profile_link',
 
     // When set to false filters won't be displayed in comments list
     'show_filters' => true,

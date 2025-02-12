@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
-        Model::shouldBeStrict(
-            ! $this->app->environment('production'),
-        );
+        // Model::shouldBeStrict(
+        //     ! $this->app->environment('production'),
+        // );
     }
 }

@@ -4,7 +4,7 @@
         <article class="flex flex-col w-full p-6 mb-4 bg-white break-inside rounded-xl dark:bg-slate-800 bg-clip-border">
             <div class="flex items-center justify-between pb-6">
                 <div class="flex justify-between w-full gap-2">
-                    <a class="flex gap-2" href="#">
+                    <a class="flex gap-2" href="{{ $crime->user->profile_link }}" wire:navigate>
                         <x-filament-panels::avatar.user :user="$crime->user" size="lg" :circular="false" />
                         <div class="font-bold text-md">
                             <div>{{ $crime->user->name }}</div>

@@ -9,7 +9,7 @@ trait UserCanComment
     // Create comment
     public function commentCanCreate(): bool
     {
-        return false;
+        return optional(Filament::auth()->user())->hasVerifiedPhone();
         if (! optional(Filament::auth()->user())->hasVerifiedPhone()) {
             abort(403, 'Please verify your phone number.');
         }
@@ -20,7 +20,7 @@ trait UserCanComment
     // Edit comment
     public function commentCanEdit(): bool
     {
-        return false;
+        return optional(Filament::auth()->user())->hasVerifiedPhone();
         if (! optional(Filament::auth()->user())->hasVerifiedPhone()) {
             abort(403, 'Please verify your phone number.');
         }
@@ -31,7 +31,7 @@ trait UserCanComment
     // Delete comment
     public function commentCanDelete(): bool
     {
-        return false;
+        return optional(Filament::auth()->user())->hasVerifiedPhone();
         if (! optional(Filament::auth()->user())->hasVerifiedPhone()) {
             abort(403, 'Please verify your phone number.');
         }

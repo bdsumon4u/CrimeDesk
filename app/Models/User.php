@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Filament\Pages\ProfilePage;
 use Devdojo\Auth\Models\User as AuthUser;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -11,13 +12,16 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use LakM\Comments\Concerns\Commenter;
 use LakM\Comments\Contracts\CommenterContract;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends AuthUser implements CommenterContract, FilamentUser, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Commenter, HasFactory, Notifiable;
+    use Commenter, HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -64,13 +68,22 @@ class User extends AuthUser implements CommenterContract, FilamentUser, HasAvata
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return 'https://ui-avatars.com/api/?name='.$this->name;
+        return $this->avatar_url ? Storage::url($this->avatar_url) : null;
     }
 
     public function filamentAvatarUrl(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->exists ? 'https://ui-avatars.com/api/?name='.$this->name : null,
+            get: fn () => $this->getFilamentAvatarUrl(),
+        );
+    }
+
+    public function profileLink(): Attribute
+    {
+        return new Attribute(
+            get: fn () => ProfilePage::getUrl([
+                'user' => $this,
+            ]),
         );
     }
 

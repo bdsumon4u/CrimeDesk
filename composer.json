@@ -10,11 +10,15 @@
         "devdojo/auth": "^1.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
+        "jeffgreco13/filament-breezy": "2.x-dev",
         "lakm/laravel-comments": "dev-clone",
         "laravel/folio": "^1.1",
         "laravel/framework": "^11.31",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "livewire/volt": "^1.6"
+        "livewire/volt": "^1.6",
+        "spatie/livewire-filepond": "dev-main",
+        "ysfkaya/filament-phone-input": "dev-main"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
