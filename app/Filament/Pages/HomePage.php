@@ -12,7 +12,7 @@ class HomePage extends Dashboard
 {
     use WithPagination;
 
-    // protected static ?string $navigationLabel = 'Home';
+    protected static ?string $navigationLabel = 'Home';
 
     protected static string $view = 'filament.pages.home-page';
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Crime;
 use App\Models\User;
 use Exception;
 use Filament\Forms\Form;
@@ -50,5 +51,17 @@ class ProfilePage extends Page
         }
 
         return $this->record;
+    }
+
+    protected function getViewData(): array
+    {
+        return [
+            'crimes' => Crime::query()
+                ->where('user_id', $this->record->id)
+                ->with(['user', 'media', 'district', 'division', 'userReact', 'comments'])
+                ->withCount(['upvotes', 'downvotes'])
+                ->orderByDesc('created_at')
+                ->paginate(10),
+        ];
     }
 }
