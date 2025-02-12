@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources;
 
+use App\Filament\Admin\Pages\ProfilePage;
 use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms\Form;
@@ -29,27 +30,29 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table->columns([
-            Tables\Columns\TextColumn::make('name')
-                ->searchable()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('email')
-                ->searchable()
-                ->sortable()
-                ->icon(fn (User $record) => $record->hasVerifiedEmail() ? 'heroicon-o-check-badge' : null)
-                ->iconColor(fn (User $record) => $record->hasVerifiedEmail() ? Color::Green : null),
-            Tables\Columns\TextColumn::make('phone')
-                ->label(__('Phone'))
-                ->sortable()
-                ->icon(fn (User $record) => $record->hasVerifiedPhone() ? 'heroicon-o-check-badge' : null)
-                ->iconColor(fn (User $record) => $record->hasVerifiedPhone() ? Color::Green : null),
-            Tables\Columns\TextColumn::make('crimes_count')
-                ->label(__('Reports'))
-                ->counts('crimes')
-                ->sortable()
-                ->badge()
-                ->alignCenter(),
-        ])
+        return $table
+            ->recordUrl(fn (User $record) => ProfilePage::getUrl(['user' => $record]))
+            ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable()
+                    ->sortable()
+                    ->icon(fn (User $record) => $record->hasVerifiedEmail() ? 'heroicon-o-check-badge' : null)
+                    ->iconColor(fn (User $record) => $record->hasVerifiedEmail() ? Color::Green : null),
+                Tables\Columns\TextColumn::make('phone')
+                    ->label(__('Phone'))
+                    ->sortable()
+                    ->icon(fn (User $record) => $record->hasVerifiedPhone() ? 'heroicon-o-check-badge' : null)
+                    ->iconColor(fn (User $record) => $record->hasVerifiedPhone() ? Color::Green : null),
+                Tables\Columns\TextColumn::make('crimes_count')
+                    ->label(__('Reports'))
+                    ->counts('crimes')
+                    ->sortable()
+                    ->badge()
+                    ->alignCenter(),
+            ])
             ->filters([
                 TernaryFilter::make('email_verified_at')
                     ->label(__('Email Verification'))
@@ -126,7 +129,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            // 'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 
