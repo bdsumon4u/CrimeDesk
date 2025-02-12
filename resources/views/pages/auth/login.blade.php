@@ -97,6 +97,11 @@ new class extends Component
 
         $userAttemptingLogin = $this->userModel->where('email', $this->email)->first();
 
+        if($userAttemptingLogin->isBanned()){
+            $this->addError('password', 'Your account has been banned.');
+            return;
+        }
+
         if(!isset($userAttemptingLogin->id)){
             $this->addError('password', trans('auth.failed'));
             return;

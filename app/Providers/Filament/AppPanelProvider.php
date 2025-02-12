@@ -81,6 +81,8 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                // 'forbid-banned-user',
+                'logs-out-banned-user',
             ])
             ->viteTheme('resources/css/filament/app/theme.css')
             ->spa();

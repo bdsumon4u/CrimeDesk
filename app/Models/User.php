@@ -5,12 +5,15 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Filament\Pages\ProfilePage;
+use Cog\Contracts\Ban\Bannable as BannableInterface;
+use Cog\Laravel\Ban\Traits\Bannable;
 use Devdojo\Auth\Models\User as AuthUser;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
@@ -18,10 +21,10 @@ use LakM\Comments\Concerns\Commenter;
 use LakM\Comments\Contracts\CommenterContract;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends AuthUser implements CommenterContract, FilamentUser, HasAvatar
+class User extends AuthUser implements BannableInterface, CommenterContract, FilamentUser, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Commenter, HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use Bannable, Commenter, HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -85,6 +88,11 @@ class User extends AuthUser implements CommenterContract, FilamentUser, HasAvata
                 'user' => $this,
             ]),
         );
+    }
+
+    public function crimes(): HasMany
+    {
+        return $this->hasMany(Crime::class);
     }
 
     public function canAccessPanel(Panel $panel): bool
