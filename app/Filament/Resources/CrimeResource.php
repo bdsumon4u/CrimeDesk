@@ -39,7 +39,7 @@ class CrimeResource extends Resource
                     ->multiple()
                     ->conversion('webp')
                     ->optimize('webp')
-                    ->resize(70)
+                    ->resize(30)
                     ->minFiles(1)
                     ->acceptedFileTypes(['image/*', 'video/mp4', 'video/quicktime'])
                     ->maxSize(50 * 1024) // 50MB limit
