@@ -21,7 +21,10 @@ echo "Deploying application ..."
     # ...
 
     # Clear cache
-    /opt/alt/php82/usr/bin/php artisan optimize
+    # /opt/alt/php82/usr/bin/php artisan optimize
+    /opt/alt/php82/usr/bin/php artisan view:cache
+    /opt/alt/php82/usr/bin/php artisan config:cache
+    /opt/alt/php82/usr/bin/php artisan filament:optimize
 
     # Reload PHP to update opcache
     # echo "" | sudo -S service php7.4-fpm reload
