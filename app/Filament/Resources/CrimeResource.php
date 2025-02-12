@@ -57,6 +57,7 @@ class CrimeResource extends Resource
                         if ($image_urls) {
                             $response = Http::post('https://crime-image-caption-generator-api.onrender.com/generate_caption', [
                                 'image_urls' => $image_urls,
+                                'language' => 'Bangla',
                             ]);
                             $set('description', $response->body());
                         }
