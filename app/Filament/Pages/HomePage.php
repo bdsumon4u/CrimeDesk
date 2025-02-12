@@ -19,6 +19,8 @@ class HomePage extends Dashboard
 
     protected static ?string $navigationLabel = 'Home';
 
+    public $search = '';
+
     protected static string $view = 'filament.pages.home-page';
 
     protected function getHeaderActions(): array
@@ -44,6 +46,12 @@ class HomePage extends Dashboard
             'crimes' => Crime::query()
                 ->when($districtId, function ($query) use ($districtId) {
                     $query->where('district_id', $districtId);
+                })
+                ->when($this->search, function ($query) {
+                    $query->where(function ($query) {
+                        $query->where('title', 'like', '%' . $this->search . '%')
+                            ->orWhere('description', 'like', '%' . $this->search . '%');
+                    });
                 })
                 ->with(['user', 'media', 'district', 'division', 'userReact', 'comments'])
                 ->withCount(['upvotes', 'downvotes'])

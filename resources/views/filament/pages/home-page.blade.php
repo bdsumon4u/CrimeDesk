@@ -9,6 +9,14 @@
     <div class="grid grid-cols-12 gap-4">
         {{-- Main --}}
         <div class="md:col-span-8">
+            <div class="mb-4">
+                <input
+                    type="text"
+                    wire:model.live="search"
+                    placeholder="Search crimes..."
+                    class="block w-full border-gray-300 rounded-lg shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-primary-500 sm:text-sm"
+                />
+            </div>
             <section class="min-h-screen mb-12">
                 @forelse ($crimes as $crime)
                     <div wire:key="thread-{{ $crime->id }}">
