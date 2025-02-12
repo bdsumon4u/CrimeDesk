@@ -131,7 +131,7 @@ class Crime extends Model implements CommentableContract, HasMedia
                 public_path('crimedesk-logo.png'), AlignPosition::BottomRight, paddingX: 10,
                 paddingY: 10,
                 paddingUnit: Unit::Percent,
-            )
-            ->nonQueued(); // Process instantly
+            );
+            // ->nonQueued(); // Process instantly
     }
 }
