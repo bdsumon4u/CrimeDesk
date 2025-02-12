@@ -38,4 +38,11 @@ class CreateCrime extends CreateRecord
             ->keyBindings(['mod+shift+s'])
             ->color('gray');
     }
+
+    protected function getRedirectUrl(): string
+    {
+        $resource = static::getResource();
+
+        return $resource::getUrl('index');
+    }
 }
