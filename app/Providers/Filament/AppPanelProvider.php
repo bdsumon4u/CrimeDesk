@@ -31,6 +31,7 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->profile()
+            ->brandLogo(asset('crimedesk-logo.png'))
             // ->profile(ProfilePage::class, false)
             ->colors([
                 'primary' => Color::Blue,

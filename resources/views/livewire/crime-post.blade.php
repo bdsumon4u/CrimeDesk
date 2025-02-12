@@ -27,11 +27,11 @@
                 <div x-data="{
                     selectedMedia: null,
                     mediaItems: @js(
-                        $crime->getMedia()->map(
+                        $crime->getMedia('default')->map(
                             fn($media) => [
-                                'url' => $media->getUrl(),
+                                'url' => $media->getUrl('webp'),
                                 'type' => str_starts_with($media->mime_type, 'video/') ? 'video' : 'image',
-                                'thumbnail' => $media->getUrl(),
+                                'thumbnail' => $media->getUrl('webp'),
                             ],
                         )
                     ),
@@ -49,11 +49,11 @@
                     }
                 }">
                     @php
-                        $mediaCount = $crime->getMedia()->count();
+                        $mediaCount = $crime->getMedia('default')->count();
                     @endphp
 
                     <div class="grid grid-cols-6 gap-4 mb-4">
-                        @foreach ($crime->getMedia() as $index => $media)
+                        @foreach ($crime->getMedia('default') as $index => $media)
                             @php
                                 $itemClasses = match (true) {
                                     $mediaCount === 1 => 'col-span-full',
@@ -63,12 +63,12 @@
                                 };
                             @endphp
 
-                            <div class="relative cursor-pointer aspect-square {{ $itemClasses }}"
+                            <div class="relative cursor-pointer {{ $itemClasses }}"
                                 x-on:click="selectedMedia = mediaItems[{{ $index }}]">
                                 @if (str_starts_with($media->mime_type, 'video/'))
                                     <div class="relative w-full h-full">
                                         <video src="{{ $media->getUrl() }}"
-                                            class="object-cover w-full h-full border rounded-md border-slate-200 dark:border-slate-700"
+                                            class="object-contain w-full h-full border rounded-md border-slate-200 dark:border-slate-700"
                                             preload="metadata"></video>
                                         <div
                                             class="absolute inset-0 flex items-center justify-center bg-black rounded-md bg-opacity-30">
@@ -79,8 +79,8 @@
                                         </div>
                                     </div>
                                 @else
-                                    <img src="{{ $media->getUrl() }}"
-                                        class="object-cover w-full h-full border rounded-md border-slate-200 dark:border-slate-700" />
+                                    <img src="{{ $media->getUrl('webp') }}"
+                                        class="object-contain w-full h-full border rounded-md border-slate-200 dark:border-slate-700" />
                                 @endif
                             </div>
                         @endforeach

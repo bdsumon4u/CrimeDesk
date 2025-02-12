@@ -11,8 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Number;
 use LakM\Comments\Concerns\Commentable;
 use LakM\Comments\Contracts\CommentableContract;
+use Spatie\Image\Enums\AlignPosition;
+use Spatie\Image\Enums\Unit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Crime extends Model implements CommentableContract, HasMedia
 {
@@ -117,5 +120,18 @@ class Crime extends Model implements CommentableContract, HasMedia
                 return Number::format(max(0, $this->upvotes_count - $this->downvotes_count + $comments) / ($this->upvotes_count + $this->downvotes_count + $comments) * 100);
             }
         );
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('webp')
+            ->format('webp') // Convert to JPEG
+            ->quality(70) // Reduce quality slightly
+            ->watermark(
+                public_path('crimedesk-logo.png'), AlignPosition::BottomRight, paddingX: 10,
+                paddingY: 10,
+                paddingUnit: Unit::Percent,
+            )
+            ->nonQueued(); // Process instantly
     }
 }

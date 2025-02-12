@@ -18,8 +18,7 @@ class CommentSentiment implements ShouldQueue
     public function __construct(
         public Comment $comment,
         public Crime $crime,
-    )
-    {
+    ) {
         //
     }
 

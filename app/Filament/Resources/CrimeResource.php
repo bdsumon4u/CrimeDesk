@@ -37,8 +37,9 @@ class CrimeResource extends Resource
                     ->label('Evidence')
                     ->placeholder('Upload evidence (Images/Video)')
                     ->multiple()
+                    ->conversion('webp')
                     ->optimize('webp')
-                    ->resize(50)
+                    ->resize(70)
                     ->minFiles(1)
                     ->acceptedFileTypes(['image/*', 'video/mp4', 'video/quicktime'])
                     ->maxSize(50 * 1024) // 50MB limit
@@ -61,7 +62,7 @@ class CrimeResource extends Resource
                                 'image_urls' => $image_urls,
                                 'language' => 'Bangla',
                             ]);
-                            $set('description', $response->body());
+                            $set('description', $response->json('english_summary_caption'));
                         }
                         // foreach ($state as $file) {
                         //     if (is_string($file)) {
