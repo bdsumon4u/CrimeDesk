@@ -14,8 +14,8 @@ use Livewire\WithPagination;
 
 class HomePage extends Dashboard
 {
-    use WithPagination;
     use HasFiltersAction;
+    use WithPagination;
 
     protected static ?string $navigationLabel = 'Home';
 
@@ -49,8 +49,8 @@ class HomePage extends Dashboard
                 })
                 ->when($this->search, function ($query) {
                     $query->where(function ($query) {
-                        $query->where('title', 'like', '%' . $this->search . '%')
-                            ->orWhere('description', 'like', '%' . $this->search . '%');
+                        $query->where('title', 'like', '%'.$this->search.'%')
+                            ->orWhere('description', 'like', '%'.$this->search.'%');
                     });
                 })
                 ->with(['user', 'media', 'district', 'division', 'userReact', 'comments'])

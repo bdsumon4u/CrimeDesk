@@ -58,11 +58,15 @@ class CrimeResource extends Resource
                             }
                         }
                         if ($image_urls) {
-                            $response = Http::post('https://crime-image-caption-generator-api.onrender.com/generate_caption', [
-                                'image_urls' => $image_urls,
-                                'language' => 'Bangla',
-                            ]);
-                            $set('description', $response->json('english_summary_caption'));
+                            try {
+                                $response = Http::post('https://crime-image-caption-generator-api.onrender.com/generate_caption', [
+                                    'image_urls' => $image_urls,
+                                    'language' => 'Bangla',
+                                ]);
+                                $set('description', $response->json('english_summary_caption'));
+                            } catch (\Exception $e) {
+                                $set('description', 'Render service is down. Please provide a manual description.');
+                            }
                         }
                         // foreach ($state as $file) {
                         //     if (is_string($file)) {
