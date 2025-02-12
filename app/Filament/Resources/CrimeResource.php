@@ -178,4 +178,9 @@ class CrimeResource extends Resource
     {
         return parent::getEloquentQuery()->whereBelongsTo(Filament::auth()->user());
     }
+
+    public static function canCreate(): bool
+    {
+        return Filament::auth()->user()->hasVerifiedPhone();
+    }
 }
