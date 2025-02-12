@@ -121,10 +121,12 @@ class Crime extends Model implements CommentableContract, HasMedia
     }
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('compressed')
-            ->quality(60) // Reduce quality to 70%
-            ->format('webp') // Convert to JPG (reduces file size)
-            ->sharpen(10) // Sharpen to maintain clarity
-            ->nonQueued(); // Process conversion immediately
+        $this->addMediaConversion('watermarked')
+            ->format('webp') // Convert to JPEG
+            ->quality(60) // Reduce quality slightly
+            ->watermark(public_path('watermark.png')) // Path to watermark
+            ->watermarkPosition('bottom-right') // Position (other options: top-left, center, etc.)
+            ->watermarkPadding(10, 10) // Add padding
+            ->nonQueued(); // Process instantly
     }
 }
