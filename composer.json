@@ -11,6 +11,7 @@
         "devdojo/auth": "^1.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
+        "intervention/image-laravel": "dev-main",
         "jeffgreco13/filament-breezy": "2.x-dev",
         "lakm/laravel-comments": "dev-clone",
         "laravel/folio": "^1.1",
@@ -18,6 +19,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/volt": "^1.6",
+        "spatie/image-optimizer": "^1.8",
         "spatie/livewire-filepond": "dev-main",
         "ysfkaya/filament-phone-input": "dev-main"
     },

@@ -33,6 +33,7 @@ class CrimeResource extends Resource
         return $form
             ->schema([
                 SpatieMediaLibraryFileUpload::make('evidence')
+                ->collection('compressed')
                     ->label('Evidence')
                     ->placeholder('Upload evidence (Images/Video)')
                     ->multiple()
@@ -52,6 +53,7 @@ class CrimeResource extends Resource
                                 continue;
                             }
                             if (str_starts_with($file->getMimeType(), 'image/')) {
+                                
                                 // Use a free AI service to generate description
                                 $description = static::generateDescriptionFromImage($file->temporaryUrl());
 
