@@ -37,6 +37,8 @@ class CrimeResource extends Resource
                     ->label('Evidence')
                     ->placeholder('Upload evidence (Images/Video)')
                     ->multiple()
+                    ->optimize('webp')
+                    ->resize(50)
                     ->minFiles(1)
                     ->acceptedFileTypes(['image/*', 'video/mp4', 'video/quicktime'])
                     ->maxSize(50 * 1024) // 50MB limit

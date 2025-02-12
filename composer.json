@@ -12,6 +12,7 @@
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "jeffgreco13/filament-breezy": "2.x-dev",
+        "joshembling/image-optimizer": "dev-main",
         "lakm/laravel-comments": "dev-clone",
         "laravel/folio": "^1.1",
         "laravel/framework": "^11.31",
