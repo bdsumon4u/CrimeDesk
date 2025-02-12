@@ -29,9 +29,9 @@
                     mediaItems: @js(
                         $crime->getMedia('default')->map(
                             fn($media) => [
-                                'url' => $media->getUrl('webp'),
+                                'url' => $media->getAvailableUrl(['webp', 'default']),
                                 'type' => str_starts_with($media->mime_type, 'video/') ? 'video' : 'image',
-                                'thumbnail' => $media->getUrl('webp'),
+                                'thumbnail' => $media->getAvailableUrl(['webp', 'default']),
                             ],
                         )
                     ),
@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <img src="{{ $media->getUrl('webp') }}"
+                                    <img src="{{ $media->getAvailableUrl(['webp', 'default']) }}"
                                         class="object-contain w-full h-full border rounded-md border-slate-200 dark:border-slate-700" />
                                 @endif
                             </div>
