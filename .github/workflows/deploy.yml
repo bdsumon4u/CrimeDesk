@@ -1,0 +1,33 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client jq curl
+
+      - name: Create SSH directory and known_hosts file
+        run: mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
+
+      - name: Add SSH known hosts
+        run: ssh-keyscan -H crimedesk.top >> ~/.ssh/known_hosts
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.KEY }}
+
+      - name: Deploy to Servers
+        run: ssh -o "StrictHostKeyChecking=no" -p 22 crimedes@crimedesk.top "cd public_html && ./server_deploy.sh" || echo -e "\e[31mError deploying\e[0m"
