@@ -17,6 +17,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Http;
 
 class CrimeResource extends Resource
 {
@@ -41,28 +42,40 @@ class CrimeResource extends Resource
                     ->maxSize(50 * 1024) // 50MB limit
                     ->required()
                     ->live()
-                    ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                        if (empty($state)) {
+                    ->afterStateUpdated(function (string $operation, $state, callable $get, callable $set) {
+                        if (empty($state) || $operation !== 'create') {
                             return;
                         }
 
                         $set('description', null);
+                        $image_urls = [];
                         foreach ($state as $file) {
-                            if (is_string($file)) {
-                                continue;
-                            }
                             if (str_starts_with($file->getMimeType(), 'image/')) {
-                                // Use a free AI service to generate description
-                                $description = static::generateDescriptionFromImage($file->temporaryUrl());
-
-                                if (filled($get('description'))) {
-                                    $description = $get('description').'<br><br>'.$description;
-                                } else {
-                                    $description = $description;
-                                }
-                                $set('description', $description);
+                                $image_urls[] = $file->temporaryUrl();
                             }
                         }
+                        if ($image_urls) {
+                            $response = Http::post('https://crime-image-caption-generator-api.onrender.com/generate_caption', [
+                                'image_urls' => $image_urls,
+                            ]);
+                            $set('description', $response->body());
+                        }
+                        // foreach ($state as $file) {
+                        //     if (is_string($file)) {
+                        //         continue;
+                        //     }
+                        //     if (str_starts_with($file->getMimeType(), 'image/')) {
+                        //         // Use a free AI service to generate description
+                        //         $description = static::generateDescriptionFromImage($file->temporaryUrl());
+
+                        //         if (filled($get('description'))) {
+                        //             $description = $get('description').'<br><br>'.$description;
+                        //         } else {
+                        //             $description = $description;
+                        //         }
+                        //         $set('description', $description);
+                        //     }
+                        // }
 
                         if (blank($get('description'))) {
                             $set('description', 'No images uploaded. Please provide a manual description.');
